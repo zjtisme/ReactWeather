@@ -11,7 +11,6 @@ module.exports={
     // var requestUrl=`${OPEN_WEATHER_MAP_URL}`;
     // console.log(requestUrl);
     return axios.get(requestUrl).then(function(res) {
-      debugger;
       if(res.data.count > 0) { // Indicate how many instances existing in the res.data.list
         return res.data.list[0].main.temp;
       } else {
@@ -19,7 +18,7 @@ module.exports={
       }
     }, function(res) {
       // throw new Error(res.data.message)
-      throw new Error('City not found!');
+      throw new Error('Server does not respond!');
     });
   }
 };
