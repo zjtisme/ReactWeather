@@ -5,10 +5,16 @@ var WeatherForm=React.createClass({
     e.preventDefault();
 
     var location=this.refs.location.value;
+    var F=this.refs.F;
+    var C=this.refs.C;
+    var unit = "C";
+    if(F.selected) {
+      unit = "F";
+    }
 
     if(location.length > 0) {
       this.refs.location.value='';
-      this.props.onSearch(location);
+      this.props.onSearch(location, unit);
     }
   },
   render: function() {
@@ -18,6 +24,10 @@ var WeatherForm=React.createClass({
           <div>
             <input type="search" ref="location" placeholder="Enter a city.."/>
           </div>
+          <select>
+            <option ref="C">Celsius</option>
+            <option ref="F">Fahrenheit</option>
+          </select>
           <div>
             <button className="hollow button expanded">Get Weather</button>
           </div>

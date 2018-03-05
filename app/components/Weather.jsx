@@ -10,26 +10,29 @@ var Weather=React.createClass({
       isLoading: false
     }
   },
-  handleSearch: function(location) {
+  handleSearch: function(location, unit) {
     var that=this;
 
     this.setState({
       isLoading: true,
       errorMessage: undefined,
       location: undefined,
-      temp: undefined
+      temp: undefined,
+      unit: unit
     });
 
-    openWeatherMap.getTemp(location).then(function(temp) {
+    openWeatherMap.getTemp(location, unit).then(function(temp) {
       that.setState({
         location: location,
         temp: temp,
-        isLoading: false
+        isLoading: false,
+        unit: unit
       });
     }, function(e) {
       that.setState({
         isLoading: false,
-        errorMessage: e.message
+        errorMessage: e.message,
+        unit: unit
       });
     });
   },
@@ -37,7 +40,7 @@ var Weather=React.createClass({
     var location = this.props.location.query.location;
 
     if(location && location.length > 0) {
-      this.handleSearch(location);
+      this.handleSearch(location, "C");
       window.location.hash='#/';
     }
   },
@@ -45,19 +48,19 @@ var Weather=React.createClass({
     var location = newProps.location.query.location;
 
     if(location && location.length > 0) {
-      this.handleSearch(location);
+      this.handleSearch(location, "C");
       window.location.hash='#/';
     }
   },
   render: function() {
 
-    var {isLoading, temp, location, errorMessage} = this.state;
+    var {isLoading, temp, location, errorMessage, unit} = this.state;
 
     function renderMessage() {
       if(isLoading) {
         return <h3 className="text-center">Fetching weather...</h3>;
       } else if(temp && location) {
-        return <WeatherMessage location={location} temp={temp}/>;
+        return <WeatherMessage location={location} temp={temp} unit={unit}/>;
       }
     }
 
