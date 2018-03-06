@@ -7,6 +7,23 @@ $title-color: #555;
   color: $title-color;
 }
 
+.main-form {
+  text-align: center;
+}
+
+.loading-message {
+  color: red;
+}
+
+.weather-message {
+  color: #2199e8;
+}
+
 input[type=search] {
   box-shadow: none;
+}
+
+select {
+  width: 40%;
+  color: green;
 }
